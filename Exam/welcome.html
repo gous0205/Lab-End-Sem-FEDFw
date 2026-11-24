@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding-top: 80px; }
+    button { padding: 9px 20px; background: #dc3545; color: #fff; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1 id="welcomeText"></h1>
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    var savedUser = JSON.parse(localStorage.getItem("user"));
+
+    // If not logged in, send back to login page
+    if (localStorage.getItem("loggedIn") !== "true" || !savedUser) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("welcomeText").innerText = "Welcome, " + savedUser.name + "!";
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedIn");   // keep the user's signup data
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

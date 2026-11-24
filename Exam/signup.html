@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+  <style>
+    body { font-family: Arial; background: #f2f2f2; display: flex; justify-content: center; padding-top: 50px; }
+    .box { background: #fff; padding: 25px; width: 300px; border-radius: 8px; box-shadow: 0 0 8px #aaa; }
+    input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
+    button { width: 100%; padding: 9px; background: #28a745; color: #fff; border: none; cursor: pointer; }
+    #msg { margin-top: 10px; font-weight: bold; }
+    a { display: block; margin-top: 10px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Signup</h2>
+    <input type="text" id="name" placeholder="Name">
+    <input type="text" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="confirm" placeholder="Confirm Password">
+    <button onclick="signup()">Signup</button>
+    <p id="msg"></p>
+    <a href="login.html">Go to Login</a>
+  </div>
+
+  <script>
+    function signup() {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      var confirm = document.getElementById("confirm").value;
+      var msg = document.getElementById("msg");
+
+      // Validation 1: all fields filled
+      if (name === "" || email === "" || password === "" || confirm === "") {
+        msg.style.color = "red";
+        msg.innerText = "All fields are required";
+        return;
+      }
+
+      // Validation 2: email contains @
+      if (!email.includes("@")) {
+        msg.style.color = "red";
+        msg.innerText = "Email must contain @";
+        return;
+      }
+
+      // Validation 3: passwords match
+      if (password !== confirm) {
+        msg.style.color = "red";
+        msg.innerText = "Passwords do not match";
+        return;
+      }
+
+      // Save user in localStorage
+      localStorage.setItem("user", JSON.stringify({ name, email, password }));
+
+      msg.style.color = "green";
+      msg.innerText = "Signup Successful";
+    }
+  </script>
+</body>
+</html>

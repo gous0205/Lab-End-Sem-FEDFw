@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    body { font-family: Arial; background: #f2f2f2; display: flex; justify-content: center; padding-top: 60px; }
+    .box { background: #fff; padding: 25px; width: 300px; border-radius: 8px; box-shadow: 0 0 8px #aaa; }
+    input { width: 100%; padding: 8px; margin: 8px 0; box-sizing: border-box; }
+    button { width: 100%; padding: 9px; background: #007bff; color: #fff; border: none; cursor: pointer; }
+    #msg { margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Login</h2>
+    <input type="text" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    function login() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      var msg = document.getElementById("msg");
+
+      // 1. Get saved user from localStorage (string -> object)
+      var savedUser = JSON.parse(localStorage.getItem("user"));
+
+      // 2. Compare
+      if (savedUser && savedUser.email === email && savedUser.password === password) {
+        msg.style.color = "green";
+        msg.innerText = "Login Successful";
+
+        // remember that the user is logged in
+        localStorage.setItem("loggedIn", "true");
+
+        // 3. Redirect after 1 second
+        setTimeout(function () {
+          window.location.href = "welcome.html";
+        }, 1000);
+      } else {
+        msg.style.color = "red";
+        msg.innerText = "Invalid email or password";
+      }
+    }
+  </script>
+</body>
+</html>
